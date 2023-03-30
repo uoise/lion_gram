@@ -30,10 +30,12 @@ public class MemberControllerTests {
     @DisplayName("signupForm")
     void t001() throws Exception {
         // Controller 테스트는 통합 테스트
+        // WHEN
         ResultActions resultActions = mvc
                 .perform(get("/member/join"))
                 .andDo(print());
 
+        // THEN
         resultActions
                 .andExpect(handler().handlerType(MemberController.class))
                 .andExpect(handler().methodName("showJoin"))
@@ -52,7 +54,7 @@ public class MemberControllerTests {
     @Test
     @DisplayName("signup")
     void t002() throws Exception {
-        // Controller 테스트는 통합 테스트
+        // when
         ResultActions resultActions = mvc
                 .perform(post("/member/join")
                         .with(csrf())
@@ -61,9 +63,72 @@ public class MemberControllerTests {
                 )
                 .andDo(print());
 
+        // then
         resultActions
                 .andExpect(handler().handlerType(MemberController.class))
                 .andExpect(handler().methodName("join"))
                 .andExpect(status().is3xxRedirection());
+    }
+
+    @Test
+    @DisplayName("join validation")
+    void t003() throws Exception {
+        // WHEN
+        ResultActions resultActions = mvc
+                .perform(post("/member/join")
+                        .with(csrf())
+                        .param("username", "user10")
+                )
+                .andDo(print());
+
+        // THEN
+        resultActions
+                .andExpect(handler().handlerType(MemberController.class))
+                .andExpect(handler().methodName("join"))
+                .andExpect(status().is4xxClientError());
+
+        // WHEN
+        resultActions = mvc
+                .perform(post("/member/join")
+                        .with(csrf())
+                        .param("password", "1234")
+                )
+                .andDo(print());
+
+        // THEN
+        resultActions
+                .andExpect(handler().handlerType(MemberController.class))
+                .andExpect(handler().methodName("join"))
+                .andExpect(status().is4xxClientError());
+
+        // WHEN
+        resultActions = mvc
+                .perform(post("/member/join")
+                        .with(csrf())
+                        .param("username", "user10" + "a".repeat(30))
+                        .param("password", "1234")
+                )
+                .andDo(print());
+
+        // THEN
+        resultActions
+                .andExpect(handler().handlerType(MemberController.class))
+                .andExpect(handler().methodName("join"))
+                .andExpect(status().is4xxClientError());
+
+        // WHEN
+        resultActions = mvc
+                .perform(post("/member/join")
+                        .with(csrf())
+                        .param("username", "user10")
+                        .param("password", "1234" + "a".repeat(30))
+                )
+                .andDo(print());
+
+        // THEN
+        resultActions
+                .andExpect(handler().handlerType(MemberController.class))
+                .andExpect(handler().methodName("join"))
+                .andExpect(status().is4xxClientError());
     }
 }

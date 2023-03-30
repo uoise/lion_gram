@@ -1,6 +1,6 @@
 # Todo
 - [ ] register
   - [x] form
-  - [ ] `redirect:/`
-  - [ ] validation
+  - [x] `redirect:/`
+  - [x] validation
   - [ ] `member` table
