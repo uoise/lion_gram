@@ -1,14 +1,19 @@
 package com.ll.gramgram.member.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@Entity
+import java.time.LocalDateTime;
+
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@EntityListeners(AuditingEntityListener.class)
+@ToString
+@Entity
 public class Member {
 
     @Id
@@ -20,4 +25,11 @@ public class Member {
 
     @Column(nullable = false)
     private String password;
+
+    @CreatedDate
+    @Column(nullable = false)
+    private LocalDateTime createDate;
+
+    @LastModifiedDate
+    private LocalDateTime modifyDate;
 }

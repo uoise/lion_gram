@@ -1,6 +1,7 @@
 package com.ll.gramgram.member.controller;
 
 import com.ll.gramgram.member.entity.JoinForm;
+import com.ll.gramgram.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class MemberController {
 
+    private final MemberService memberService;
+
     @GetMapping("/join")
     public String showJoin(JoinForm joinForm) {
         return "usr/member/join";
@@ -20,6 +23,7 @@ public class MemberController {
 
     @PostMapping("/join")
     public String join(@Valid JoinForm joinForm) {
+        memberService.join(joinForm.getUsername(), joinForm.getPassword());
         return "redirect:/";
     }
 }

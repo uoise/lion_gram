@@ -1,5 +1,7 @@
 package com.ll.gramgram.member.controller;
 
+import com.ll.gramgram.member.entity.Member;
+import com.ll.gramgram.member.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -25,6 +28,9 @@ public class MemberControllerTests {
 
     @Autowired
     private MockMvc mvc;
+
+    @Autowired
+    private MemberService memberService;
 
     @Test
     @DisplayName("signupForm")
@@ -54,7 +60,7 @@ public class MemberControllerTests {
     @Test
     @DisplayName("signup")
     void t002() throws Exception {
-        // when
+        // WHEN
         ResultActions resultActions = mvc
                 .perform(post("/member/join")
                         .with(csrf())
@@ -63,11 +69,13 @@ public class MemberControllerTests {
                 )
                 .andDo(print());
 
-        // then
+        // THEN
         resultActions
                 .andExpect(handler().handlerType(MemberController.class))
                 .andExpect(handler().methodName("join"))
                 .andExpect(status().is3xxRedirection());
+        Member member = memberService.findByUsername("user10").orElse(null);
+        assertThat(member).isNotNull();
     }
 
     @Test
