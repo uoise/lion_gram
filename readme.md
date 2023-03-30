@@ -1,6 +1,11 @@
 # Todo
-- [x] register
+- [ ] register
   - [x] form
   - [x] `redirect:/`
   - [x] validation
   - [x] `member` table
+  - [ ] block authenticated user
+- [ ] login
+  - [ ] block authenticated user
+  - [ ] loginForm
+  - [ ] validation
