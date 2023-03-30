@@ -1,0 +1,35 @@
+<html>
+<head>
+    <style>
+        @font-face {
+            font-family: 'GmarketSansMedium';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        html > body {
+            font-family: "GmarketSansMedium";
+            text-underline-position: under;
+        }
+    </style>
+
+    <!-- tailwind daisyUI -->
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<form th:action method="post" class="p-10 flex flex-col gap-4">
+    <div>
+        <input type="text" name="username" id="username" placeholder="id" class="input input-bordered">
+    </div>
+    <div>
+        <input type="password" name="password" id="password" placeholder="password" class="input input-bordered">
+    </div>
+    <div>
+        <input type="submit" value="회원가입" class="btn btn-primary">
+    </div>
+</form>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.ll.gramgram.config;
+package com.ll.gramgram.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
