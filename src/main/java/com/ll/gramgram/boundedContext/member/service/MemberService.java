@@ -1,7 +1,7 @@
-package com.ll.gramgram.member.service;
+package com.ll.gramgram.boundedContext.member.service;
 
-import com.ll.gramgram.member.entity.Member;
-import com.ll.gramgram.member.repository.MemberRepository;
+import com.ll.gramgram.boundedContext.member.entity.Member;
+import com.ll.gramgram.boundedContext.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,8 @@
 package com.ll.gramgram.member.controller;
 
-import com.ll.gramgram.member.entity.Member;
-import com.ll.gramgram.member.service.MemberService;
+import com.ll.gramgram.boundedContext.member.controller.MemberController;
+import com.ll.gramgram.boundedContext.member.entity.Member;
+import com.ll.gramgram.boundedContext.member.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -162,5 +163,23 @@ public class MemberControllerTests {
                 .andExpect(content().string(containsString("""
                         <input type="submit" value="로그인"
                         """.stripIndent().trim())));
+    }
+
+    @Test
+    @DisplayName("login")
+    void t005() throws Exception {
+        // WHEN
+        ResultActions resultActions = mvc
+                .perform(post("/member/login")
+                        .with(csrf())
+                        .param("username", "user1")
+                        .param("password", "1234")
+                )
+                .andDo(print());
+
+        // THEN
+        resultActions
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrlPattern("/**"));
     }
 }
