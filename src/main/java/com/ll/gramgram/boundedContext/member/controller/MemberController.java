@@ -4,7 +4,6 @@ import com.ll.gramgram.base.Rq.Rq;
 import com.ll.gramgram.base.rsData.RsData;
 import com.ll.gramgram.boundedContext.member.entity.Member;
 import com.ll.gramgram.boundedContext.member.service.MemberService;
-import com.ll.gramgram.standard.util.Ut;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -41,12 +40,10 @@ public class MemberController {
     public String join(@Valid JoinForm joinForm) {
         RsData<Member> joinRs = memberService.join(joinForm.username(), joinForm.password());
         if (joinRs.isFail()) {
-            return rq.historyBack(joinRs.getMsg());
+            return rq.historyBack(joinRs);
         }
 
-        String msg = joinRs.getMsg() + "<br>로그인 후 이용해주세요.";
-
-        return "redirect:/member/login?msg=" + Ut.url.encode(msg);
+        return rq.redirectWithMsg("/member/login", joinRs);
     }
 
     @PreAuthorize("isAnonymous()")
