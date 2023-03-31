@@ -10,3 +10,7 @@
   - [x] loginForm
   - [x] validation
   - [x] username at
+- [ ] Instagram 
+  - [ ] connect
+    - [ ] connectForm
+  - [ ] validation
