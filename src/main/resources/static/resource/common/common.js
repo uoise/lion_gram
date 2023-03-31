@@ -17,23 +17,25 @@ toastr.options = {
 };
 
 function parseMsg(msg) {
-    // 타임리프 문법(파라미터, ? 뒤에 입력된 매개변수들)
-    const params = /*[[ ${param} ]]*/ null;
 
-    if (params.msg) {
-        toastNotice(params.msg[0]);
-    }
+    const [pureMsg, ttl] = msg.split(";ttl=");
 
-    if (params.errorMsg) {
-        toastWarning(params.errorMsg[0]);
-    }
+    const currentJsUnixTimestamp = new Date().getTime();
+
+    return [pureMsg, true];
 }
 
 
 function toastNotice(msg) {
-    toastr["success"](msg, "알림");
+    const [pureMsg, needToShow] = parseMsg(msg);
+    if (needToShow) {
+        toastr["success"](pureMsg, "알림");
+    }
 }
 
 function toastWarning(msg) {
-    toastr["warning"](msg, "알림");
+    const [pureMsg, needToShow] = parseMsg(msg);
+    if (needToShow) {
+        toastr["warning"](pureMsg, "경고");
+    }
 }

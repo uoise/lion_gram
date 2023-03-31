@@ -1,5 +1,6 @@
 package com.ll.gramgram.boundedContext.member.controller;
 
+import com.ll.gramgram.base.Rq.Rq;
 import com.ll.gramgram.base.rsData.RsData;
 import com.ll.gramgram.boundedContext.member.entity.Member;
 import com.ll.gramgram.boundedContext.member.service.MemberService;
@@ -23,6 +24,7 @@ import java.security.Principal;
 public class MemberController {
 
     private final MemberService memberService;
+    private final Rq rq;
 
     @PreAuthorize("isAnonymous()")
     @GetMapping("/join")
@@ -39,7 +41,7 @@ public class MemberController {
     public String join(@Valid JoinForm joinForm) {
         RsData<Member> joinRs = memberService.join(joinForm.username(), joinForm.password());
         if (joinRs.isFail()) {
-            return "common/js";
+            return rq.historyBack(joinRs.getMsg());
         }
 
         String msg = joinRs.getMsg() + "<br>로그인 후 이용해주세요.";
