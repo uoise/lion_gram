@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Enumeration;
 
@@ -17,6 +18,8 @@ public class HomeController {
     }
 
 
+    @GetMapping("/debugSession")
+    @ResponseBody
     public String showDebugSession(HttpSession session) {
         StringBuilder sb = new StringBuilder("Session content:\n");
 
@@ -27,6 +30,6 @@ public class HomeController {
             sb.append(attributeName).append(": ").append(attributeValue).append("\n");
         }
 
-        return sb.toString();
+        return sb.toString().replace("\n", "<br>");
     }
 }
