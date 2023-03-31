@@ -24,6 +24,9 @@ public class InstaMember {
     @Column(nullable = false, unique = true)
     private String username;
 
+    @Column(nullable = false)
+    private String gender;
+
     @CreatedDate
     @Column(nullable = false)
     private LocalDateTime createDate;

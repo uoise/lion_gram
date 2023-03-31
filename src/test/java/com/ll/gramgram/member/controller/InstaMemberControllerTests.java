@@ -1,6 +1,8 @@
 package com.ll.gramgram.member.controller;
 
 import com.ll.gramgram.boundedContext.instaMember.controller.InstaMemberController;
+import com.ll.gramgram.boundedContext.instaMember.entity.InstaMember;
+import com.ll.gramgram.boundedContext.instaMember.service.InstaMemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -27,6 +30,9 @@ class InstaMemberControllerTests {
 
     @Autowired
     private MockMvc mvc;
+
+    @Autowired
+    private InstaMemberService instaMemberService;
 
     @Test
     @DisplayName("insta connect")
@@ -94,6 +100,9 @@ class InstaMemberControllerTests {
                 .andExpect(redirectedUrlPattern("/pop**"))
         ;
 
+        InstaMember instaMember = instaMemberService.findByUsername("abc123").orElse(null);
+
+        assertThat(instaMember).isNotNull();
     }
 
 }
