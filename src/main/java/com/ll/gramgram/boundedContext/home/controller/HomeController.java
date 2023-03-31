@@ -1,4 +1,4 @@
-package com.ll.gramgram.base.controller;
+package com.ll.gramgram.boundedContext.home.controller;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.ll.gramgram.base;
+package com.ll.gramgram.base.Rq;
 
 import com.ll.gramgram.boundedContext.member.entity.Member;
 import com.ll.gramgram.boundedContext.member.service.MemberService;
@@ -49,7 +49,8 @@ public class Rq {
     public Member getMember() {
         if (isLogout()) return null;
         if (member == null) {
-            member = memberService.findByUsername(user.getUsername()).orElseThrow(() -> new UsernameNotFoundException("%s not found".formatted(user.getUsername())));
+            member = memberService.findByUsername(user.getUsername()).orElseThrow(
+                    () -> new UsernameNotFoundException("%s not found".formatted(user.getUsername())));
         }
         return member;
     }
