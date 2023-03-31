@@ -1,11 +1,12 @@
 # Todo
-- [ ] register
+- [x] register
   - [x] form
   - [x] `redirect:/`
   - [x] validation
   - [x] `member` table
-  - [ ] block authenticated user
-- [ ] login
-  - [ ] block authenticated user
-  - [ ] loginForm
-  - [ ] validation
+  - [x] block authenticated user
+- [] login
+  - [x] block authenticated user
+  - [x] loginForm
+  - [x] validation
+  - [x] username at navbar
